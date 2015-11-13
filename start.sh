@@ -1,6 +1,22 @@
+#!/bin/bash
+
+if [ -z "$ETHERPAD_TITLE" ]; then
+	ETHERPAD_TITLE="Etherpad"
+fi
+
+if [ -z "$ETHERPAD_SESSION_KEY" ]; then
+	ETHERPAD_SESSION_KEY="fdereljl"
+fi
+
+ETHERPAD_ADMIN="true"
+if [ -z "$ETHERPAD_ADMIN_PASS"]; then
+	ETHERPAD_ADMIN="false"
+fi
+
+cat > /settings.json <<EOF
 {
   // Name your instance!
-  "title": "Etherpad",
+  "title": "$ETHERPAD_TITLE",
 
   // favicon default name
   // alternatively, set up a fully specified Url to your own favicon
@@ -13,7 +29,7 @@
   // Session Key, used for reconnecting user sessions
   // Set this to a secure string at least 10 characters long.  Do not share this value.
   // change this...
-  "sessionKey" : "1q2w3e4r5t",
+  "sessionKey" : "$ETHERPAD_SESSION_KEY",
 
   /*
   // Node native SSL support
@@ -31,21 +47,21 @@
 
   //The Type of the database. You can choose between dirty, postgres, sqlite and mysql
   //You shouldn't use "dirty" for for anything else than testing or development
-  "dbType" : "dirty",
+  "dbType" : "mysql",
   //the database specific settings
-  "dbSettings" : {
+/*  "dbSettings" : {
                    "filename" : "var/dirty.db"
                  },
-
-  /* An Example of MySQL Configuration
+*/
+  // An Example of MySQL Configuration
    "dbType" : "mysql",
    "dbSettings" : {
-                    "user"    : "root",
-                    "host"    : "localhost",
-                    "password": "",
-                    "database": "store"
+                    "user"    : "$MYSQL_ENV_DB_USER",
+                    "host"    : "$MYSQL_PORT_3306_TCP_ADDR",
+                    "password": "$MYSQL_ENV_DB_PASS",
+                    "database": "$MYSQL_ENV_DB_NAME"
                   },
-  */
+  
 
   //the default text of a pad
   "defaultPadText" : "Welcome to Etherpad!\n\nThis pad text is synchronized as you type, so that everyone viewing this page sees the same text. This allows you to collaborate seamlessly on documents!\n\nGet involved with Etherpad at http:\/\/etherpad.org\n",
@@ -79,8 +95,8 @@
      If you do not uncomment this, /admin will not be available! */
   "users": {
     "admin": {
-      "password": "etherpad",
-      "is_admin": true
+      "password": "$ETHERPAD_ADMIN_PASS",
+      "is_admin": $ETHERPAD_ADMIN
     }
   },
 
@@ -131,4 +147,6 @@
       }*/
         ] }
 }
+EOF
 
+supervisord -c /etc/supervisor/supervisor.conf -n
