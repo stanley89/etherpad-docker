@@ -7,8 +7,9 @@
 # Version 1.0
 
 # Use Docker's nodejs, which is based on ubuntu
-FROM dockerfile/nodejs
-MAINTAINER John E. Arnold, iohannes.eduardus.arnold@gmail.com
+#FROM dockerfile/nodejs
+FROM node:latest
+MAINTAINER neowulf33
 
 # Get Etherpad-lite's other dependencies
 RUN apt-get update
@@ -23,6 +24,7 @@ RUN /opt/etherpad/bin/installDeps.sh
 # Add conf files
 ADD supervisor.conf /etc/supervisor/supervisor.conf
 ADD start.sh /
+RUN chmod +x start.sh
 
 EXPOSE 9001
 CMD ./start.sh
