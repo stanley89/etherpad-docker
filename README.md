@@ -6,7 +6,7 @@ This is a Docker image which is nothing more than the basic test Etherpad setup 
 
 To build the image from github sources, run:
 
-`docker build -t etherpad-docker https://github.com/stanley89/etherpad-docker`
+`docker build -t etherpad-docker github.com/stanley89/etherpad-docker`
 
 In order to use image with mysql storage, use sameersbn/mysql image:
 `docker pull sameersbn/mysql`
