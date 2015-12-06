@@ -1,27 +1,21 @@
 etherpad-docker
 ===============
 
-This is a Docker image which is nothing more than the basic test Etherpad setup as described on https://github.com/ether/etherpad-lite.
-(All of these instructions are as root.) To download the image from the Docker index, run:
+This is a Docker image which is nothing more than the basic test Etherpad setup as described on https://github.com/ether/etherpad-lite. It is possible to use this image with sameersbn/mysql to provide mysql storage to etherpad:
+(All of these instructions are as root.)
 
-docker build -t etherpad-docker https://github.com/neowulf33/etherpad-docker
+To build the image from github sources, run:
 
-`docker pull leibnitius/etherpad-docker`
+`docker build -t etherpad-docker https://github.com/stanley89/etherpad-docker`
 
-To run Etherpad on port 9001, run:
+In order to use image with mysql storage, use sameersbn/mysql image:
+`docker pull sameersbn/mysql`
+`docker run -d --name etherpad-mysql --restart=always -v /var/lib/docker/data/etherpad/mysql/:/var/lib/mysql -e 'DB_NAME=etherpad' -e 'DB_USER=etherpad' -e 'DB_PASS=xxx' sameersbn/mysql:latest`
 
-`docker run -d -p 9001:9001 etherpad-docker`
+To run Etherpad linked with mysql on port 9001, run:
 
-To run Etherpad on port 80, run:
+`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE="My Pad"' -e 'ETHERPAD_SESSION_KEY=xxx' -e 'ETHERPAD_ADMIN=true' -e 'ETHERPAD_ADMIN_PASS=xxx' --link etherpad-mysql:mysql etherpad-docker`
 
-`docker run -d -p 80:9001 etherpad-docker`
 
-To edit the Etherpad settings.json, it is necessary to clone the Git repository:
 
-`git clone git://github.com/IohannesArnold/etherpad-docker.git && cd etherpad-docker`
 
-Then edit the settings.json to your liking and run:
-
-`docker build -t <YOUR_USERNAME>/etherpad-docker`
-
-This image could also be used as a base for Docker Etherpad images integrated with MySQL, etc by editing the `start.sh` file.
