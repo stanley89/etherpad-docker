@@ -13,7 +13,7 @@ if [ -z "$ETHERPAD_ADMIN_PASS"]; then
 	ETHERPAD_ADMIN="false"
 fi
 
-cat > /settings.json <<EOF
+cat > /opt/etherpad/settings.json <<EOF
 {
   // Name your instance!
   "title": "$ETHERPAD_TITLE",
