@@ -149,4 +149,5 @@ cat > /opt/etherpad/settings.json <<EOF
 }
 EOF
 
-supervisord -c /etc/supervisor/supervisor.conf -n
+# do exec as that will make process get signals...
+exec supervisord -c /etc/supervisor/supervisor.conf -n
