@@ -9,12 +9,14 @@ To build the image from github sources, run:
 `docker build -t etherpad-docker github.com/stanley89/etherpad-docker`
 
 In order to use image with mysql storage, use sameersbn/mysql image:
+
 `docker pull sameersbn/mysql`
+
 `docker run -d --name etherpad-mysql --restart=always -v /var/lib/docker/data/etherpad/mysql/:/var/lib/mysql -e 'DB_NAME=etherpad' -e 'DB_USER=etherpad' -e 'DB_PASS=xxx' sameersbn/mysql:latest`
 
 To run Etherpad linked with mysql on port 9001, run:
 
-`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE="My Pad"' -e 'ETHERPAD_SESSION_KEY=xxx' -e 'ETHERPAD_ADMIN=true' -e 'ETHERPAD_ADMIN_PASS=xxx' --link etherpad-mysql:mysql etherpad-docker`
+`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE=My Pad' -e 'ETHERPAD_SESSION_KEY=xxx' -e 'ETHERPAD_ADMIN=true' -e 'ETHERPAD_ADMIN_PASS=xxx' --link etherpad-mysql:mysql etherpad-docker`
 
 
 
