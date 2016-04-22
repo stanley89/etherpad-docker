@@ -7,7 +7,7 @@
 #
 # Version 1.0
 
-FROM node:latest
+FROM node:argon
 MAINTAINER stanley89
 
 # Get Etherpad-lite's other dependencies
