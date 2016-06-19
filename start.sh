@@ -9,7 +9,7 @@ if [ -z "$ETHERPAD_SESSION_KEY" ]; then
 fi
 
 ETHERPAD_ADMIN="true"
-if [ -z "$ETHERPAD_ADMIN_PASS"]; then
+if [ -z "$ETHERPAD_ADMIN_PASS" ]; then
 	ETHERPAD_ADMIN="false"
 fi
 
