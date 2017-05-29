@@ -16,8 +16,9 @@ In order to use image with mysql storage, use sameersbn/mysql image:
 
 To run Etherpad linked with mysql on port 9001, run:
 
-`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE=My Pad' -e 'ETHERPAD_SESSION_KEY=xxx' -e 'ETHERPAD_ADMIN=true' -e 'ETHERPAD_ADMIN_PASS=xxx' --link etherpad-mysql:mysql etherpad-docker`
+`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE=My Pad' --link etherpad-mysql:mysql etherpad-docker`
 
+To run Etherpad on port 9001 with external mysql, use:
 
-
+`docker run -d --name etherpad --restart=always -p 9001:9001 -e 'ETHERPAD_TITLE=My Pad' -e 'MYSQL_ENV_DB_USER=user' -e 'MYSQL_PORT_3306_TCP_ADDR=host' -e 'MYSQL_ENV_DB_PASS=password' -e 'MYSQL_ENV_DB_NAME=dbname' etherpad-docker`
 

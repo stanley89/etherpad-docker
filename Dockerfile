@@ -7,12 +7,22 @@
 #
 # Version 1.0
 
-FROM node:argon
-MAINTAINER stanley89
+# Use Docker's nodejs, which is based on ubuntu
+FROM node:latest
+MAINTAINER John E. Arnold, iohannes.eduardus.arnold@gmail.com
 
 # Get Etherpad-lite's other dependencies
-RUN apt-get update && apt-get install -y gzip git-core curl python libssl-dev pkg-config build-essential supervisor && \
-    apt-get clean && apt-get autoclean 
+RUN apt-get update && apt-get install -y \
+  build-essential \
+  curl \
+  gzip \
+  git-core \
+  libssl-dev \
+  pkg-config \
+  python \
+  supervisor \
+  
+  && rm -rf /var/lib/apt/lists/*
 
 # Grab the latest Git version
 RUN cd /opt && git clone https://github.com/ether/etherpad-lite.git etherpad
