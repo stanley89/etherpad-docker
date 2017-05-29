@@ -46,7 +46,7 @@ cat > /opt/etherpad/settings.json <<EOF
                     "user"    : "$MYSQL_ENV_DB_USER",
                     "host"    : "$MYSQL_PORT_3306_TCP_ADDR",
                     "password": "$MYSQL_ENV_DB_PASS",
-                    "database": "$MYSQL_ENV_DB_NAME"
+                    "database": "$MYSQL_ENV_DB_NAME",
                     "charset" : "utf8mb4"
                   },
   
