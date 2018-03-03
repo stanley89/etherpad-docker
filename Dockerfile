@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y \
   && rm -rf /var/lib/apt/lists/*
 
 # Grab the latest Git version
-RUN cd /opt && git clone https://github.com/ether/etherpad-lite.git etherpad
+RUN cd /opt && git clone -b master https://github.com/ether/etherpad-lite.git etherpad
 
 # Install node dependencies and plugins
 RUN cd /opt/etherpad/ && ./bin/installDeps.sh
